@@ -12,8 +12,6 @@ function Formulario() {
     console.log("Datos enviados:", data);
     alert("Formulario enviado correctamente");
   };
-
-  const emailValue = watch("email");
   const passwordValue = watch("password");
 
   return (
@@ -25,23 +23,11 @@ function Formulario() {
           <input
             placeholder="Nombre"
             className="bg-gray-100 text-gray-900 text-sm placeholder-gray-500 border border-gray-300 rounded-md p-2 mb-1"
-            {...register("primerNombre", { required: "El nombre es requerido" })}
+            {...register("nombre", { required: "El nombre es requerido", minLength: { value: 3, message: "Debe tener al menos 3 caracteres" } })}
           />
-          {errors.primerNombre && (
+          {errors.nombre && (
             <span className="text-red-500 text-sm mb-3">
-              {errors.primerNombre.message}
-            </span>
-          )}
-
-          {/* Apellido */}
-          <input
-            placeholder="Apellido"
-            className="bg-gray-100 text-gray-900 text-sm placeholder-gray-500 border border-gray-300 rounded-md p-2 mb-1"
-            {...register("apellido", { required: "El apellido es requerido" })}
-          />
-          {errors.apellido && (
-            <span className="text-red-500 text-sm mb-3">
-              {errors.apellido.message}
+              {errors.nombre.message}
             </span>
           )}
 
@@ -53,7 +39,7 @@ function Formulario() {
             {...register("email", {
               required: "El email es requerido",
               pattern: {
-                value: /^\S+@\S+$/i,
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                 message: "Formato de email inválido",
               },
             })}
@@ -61,23 +47,6 @@ function Formulario() {
           {errors.email && (
             <span className="text-red-500 text-sm mb-3">
               {errors.email.message}
-            </span>
-          )}
-
-          {/* Confirmar Email */}
-          <input
-            placeholder="Confirmar Email"
-            type="email"
-            className="bg-gray-100 text-gray-900 text-sm placeholder-gray-500 border border-gray-300 rounded-md p-2 mb-1"
-            {...register("confirmaEmail", {
-              required: "Debes confirmar el email",
-              validate: (value) =>
-                value === emailValue || "Los correos no coinciden",
-            })}
-          />
-          {errors.confirmaEmail && (
-            <span className="text-red-500 text-sm mb-3">
-              {errors.confirmaEmail.message}
             </span>
           )}
 
@@ -117,46 +86,12 @@ function Formulario() {
             </span>
           )}
 
-          {/* Género */}
-          <label className="text-sm mb-2 text-gray-900 cursor-pointer">
-            Género
-          </label>
-          <select
-            className="bg-gray-100 text-gray-900 text-sm placeholder-gray-500 border border-gray-300 rounded-md p-2 mb-3"
-            {...register("genero", { required: "Selecciona un género" })}
-          >
-            <option value="">Selecciona...</option>
-            <option value="male">Masculino</option>
-            <option value="female">Femenino</option>
-            <option value="other">Otro</option>
-          </select>
-          {errors.genero && (
-            <span className="text-red-500 text-sm mb-3">
-              {errors.genero.message}
-            </span>
-          )}
-
-          {/* Fecha */}
-          <label className="text-sm mb-2 text-gray-900 cursor-pointer">
-            Fecha de nacimiento
-          </label>
-          <input
-            type="date"
-            className="bg-gray-100 text-gray-900 text-sm placeholder-gray-500 border border-gray-300 rounded-md p-2 mb-3"
-            {...register("edad", { required: "La fecha es requerida" })}
-          />
-          {errors.edad && (
-            <span className="text-red-500 text-sm mb-3">
-              {errors.edad.message}
-            </span>
-          )}
-
           {/* Botón */}
           <button
             type="submit"
             className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:from-indigo-600 hover:to-blue-600"
           >
-            Iniciar Sesión
+            Enviar
           </button>
         </form>
       </div>
